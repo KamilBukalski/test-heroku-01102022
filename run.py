@@ -1,15 +1,13 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output
 from flask import Flask
 import os
-
 server = Flask(__name__)
 server.secret_key = os.environ.get('secret_key', 'secret')
 app = dash.Dash(name = __name__, server = server)
-app.config.supress_callback_exceptions = True
-
+#app.config.supress_callback_exceptions = True
 app.layout = html.Div(children=[
     html.H1(children='Hello Dash'),
     html.Div(children='''
@@ -30,7 +28,6 @@ app.layout = html.Div(children=[
     dcc.Input(id='my-id', value='initial value', type="text"),
     html.Div(id='my-div')
 ])
-
 @app.callback(
     Output(component_id='my-div', component_property='children'),
     [Input(component_id='my-id', component_property='value')]
